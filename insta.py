@@ -10,8 +10,7 @@ from keep_alive import keep_alive
 keep_alive()
 ig = instaloader.Instaloader()
 
-bot_token = '7336498837:AAFePhCo1RjFegTWwi3gQ5emjOt9qbCmS70'
-chat_id = '-1002076457708'
+bot_token = os.environ.get('token')
 
 def insta(url):
    try:
