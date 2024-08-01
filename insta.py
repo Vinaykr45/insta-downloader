@@ -6,13 +6,16 @@ import glob
 from telegram import Update,InputMediaPhoto,InputMediaVideo
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 from keep_alive import keep_alive
-
+     
 keep_alive()
 ig = instaloader.Instaloader()
-
+ig.context._session.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'})
 bot_token = os.environ.get('token')
 
+pathname = 'instafiles'
+
 def insta(url):
+   ig.dirname_pattern = pathname + '/{target}'
    try:
      profile = instaloader.Post.from_shortcode(ig.context,url.split("/")[-2])
      ig.download_post(profile,target=profile.url.split("/")[-2])
@@ -27,7 +30,7 @@ To get photo/video/carousel/reels/IGTV send URL of the post to the bot.''')
    
 async def img(update:Update,context: ContextTypes):
     await update.message.reply_chat_action(action='typing')
-    current_directory = os.path.dirname(os.path.abspath(__file__))
+    current_directory = pathname
     directories = [d for d in os.listdir(current_directory) if os.path.isdir(os.path.join(current_directory, d))]
     first_directory = os.path.join(current_directory, sorted(directories)[0])
     images = [f for f in os.listdir(first_directory) if os.path.isfile(os.path.join(first_directory, f)) and f.lower().endswith(('png', 'jpg', 'jpeg','txt','json.xz','gif','mp4',))]
@@ -53,7 +56,7 @@ async def img(update:Update,context: ContextTypes):
 
 async def reel(update:Update,context: ContextTypes):
     await update.message.reply_chat_action(action='typing')
-    current_directory = os.path.dirname(os.path.abspath(__file__))
+    current_directory = pathname
     directories = [d for d in os.listdir(current_directory) if os.path.isdir(os.path.join(current_directory, d))]
     first_directory = os.path.join(current_directory, sorted(directories)[0])
     images = [f for f in os.listdir(first_directory) if os.path.isfile(os.path.join(first_directory, f)) and f.lower().endswith(('png', 'jpg', 'jpeg','txt','json.xz','gif','mp4',))]
