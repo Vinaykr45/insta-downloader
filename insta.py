@@ -5,7 +5,7 @@ import time
 import requests
 from telegram import Update,InputMediaPhoto,InputMediaVideo
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
-import logging
+
 # ig = instaloader.Instaloader()
 
 bot_token = '7336498837:AAFePhCo1RjFegTWwi3gQ5emjOt9qbCmS70'
@@ -13,7 +13,6 @@ chat_id = '-1002076457708'
 
 sessionid ='53337164038%3AM21mEsh0cRYZ5N%3A2%3AAYeYaoXumNPgaGeaA1_zAPOS8zn2WyOP8yvTi6Q4Vg'
 # Instaloader settings
-logging.basicConfig(level=logging.INFO)
 ig = instaloader.Instaloader()
 # L.login('vinay_kr_official', 'Vinaykr@75')
 ig.context.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
