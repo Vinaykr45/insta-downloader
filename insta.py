@@ -13,24 +13,6 @@ ig = instaloader.Instaloader()
 bot_token = '7336498837:AAFePhCo1RjFegTWwi3gQ5emjOt9qbCmS70'
 chat_id = '-1002076457708'
 
-
-# url = input("Enetr url: ")
-
-# ig.login('vinay_kr_official','Vinaykr@75')
-
-# username = input("Enter insta username: ")
-# profile = instaloader.Profile.from_username(ig.context,username)
-# ig.download_profilepic(profile)
-# # for post in profile.get_posts():
-# #  ig.download_post(post,target=profile.username)
-# print("Profile Pic Download")
-
-
-
-
-# url = input("Enter url: ")
-
-
 def insta(url):
    try:
      profile = instaloader.Post.from_shortcode(ig.context,url.split("/")[-2])
