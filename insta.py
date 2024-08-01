@@ -5,6 +5,9 @@ import time
 import glob
 from telegram import Update,InputMediaPhoto,InputMediaVideo
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from keep_alive import keep_alive
+
+keep_alive()
 ig = instaloader.Instaloader()
 
 bot_token = '7336498837:AAFePhCo1RjFegTWwi3gQ5emjOt9qbCmS70'
