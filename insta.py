@@ -5,10 +5,12 @@ import time
 import requests
 from telegram import Update,InputMediaPhoto,InputMediaVideo
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from keep_alive import keep_alive
 
+keep_alive()
 # ig = instaloader.Instaloader()
 
-bot_token = '7336498837:AAFePhCo1RjFegTWwi3gQ5emjOt9qbCmS70'
+bot_token = os.environ.get('token')
 chat_id = '-1002076457708'
 
 sessionid ='53337164038%3AM21mEsh0cRYZ5N%3A2%3AAYeYaoXumNPgaGeaA1_zAPOS8zn2WyOP8yvTi6Q4Vg'
