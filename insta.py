@@ -26,11 +26,11 @@ ig.context._session.cookies.update({
 
 pathname = 'instafiles'
 
-def insta(url):
+def insta(url,chat):
    ig.dirname_pattern = pathname + '/{target}'
    try:
      profile = instaloader.Post.from_shortcode(ig.context,url.split("/")[-2])
-     ig.download_post(profile,target=profile.url.split("/")[-2])
+     ig.download_post(profile,target=chat)
      time.sleep(2)
    except Exception as e:
      print(e)
@@ -39,11 +39,12 @@ def insta(url):
 async def start_cmd(update:Update,context: ContextTypes):
     await update.message.reply_text('''Hi! This bot helps you to save photos, videos, carousels and many more from Instagram.
 To get photo/video/carousel/reels/IGTV send URL of the post to the bot.''')
-
+   
 async def img(update:Update,context: ContextTypes):
     await update.message.reply_chat_action(action='typing')
+    chatid = update.message.chat.id
     current_directory = pathname
-    directories = [d for d in os.listdir(current_directory) if os.path.isdir(os.path.join(current_directory, d))]
+    directories = [d for d in os.listdir(current_directory) if str(chatid) in d and os.path.isdir(os.path.join(current_directory, d))]
     first_directory = os.path.join(current_directory, sorted(directories)[0])
     images = [f for f in os.listdir(first_directory) if os.path.isfile(os.path.join(first_directory, f)) and f.lower().endswith(('png', 'jpg', 'jpeg','txt','json.xz','gif','mp4',))]
     image_url = []
@@ -68,8 +69,9 @@ async def img(update:Update,context: ContextTypes):
 
 async def reel(update:Update,context: ContextTypes):
     await update.message.reply_chat_action(action='typing')
+    chatid = update.message.chat.id
     current_directory = pathname
-    directories = [d for d in os.listdir(current_directory) if os.path.isdir(os.path.join(current_directory, d))]
+    directories = [d for d in os.listdir(current_directory) if str(chatid) in d and os.path.isdir(os.path.join(current_directory, d))]
     first_directory = os.path.join(current_directory, sorted(directories)[0])
     images = [f for f in os.listdir(first_directory) if os.path.isfile(os.path.join(first_directory, f)) and f.lower().endswith(('png', 'jpg', 'jpeg','txt','json.xz','gif','mp4',))]
     image_url = []
@@ -90,57 +92,59 @@ async def reel(update:Update,context: ContextTypes):
         await update.message.reply_html(message)        
     else:
        await update.message.reply_text("No images found in the folder.")      
-
+    
 async def img_cmd(update:Update,context: ContextTypes):
     await update.message.reply_text('Please past the URL')
-
+    
 async def vid_cmd(update:Update,context: ContextTypes):
     await update.message.reply_text('Please past the URL')
 
 
-
-def handle_response(text: str) -> str:
+    
+def handle_response(text: str,chatid) -> str:
     processed : str = text.lower()
+    chat = chatid
     if 'hello' in processed:
         return 'Hey there'
-
+    
     if 'good morning' in processed:
         return 'Hey there good morning'
-
+    
     if processed.startswith('https://www.instagram.com/reel'):
-       insta(text)
+       insta(text,chat)
        return 'Click here /generate_reel'
-
+      
     if processed.startswith('https://www.instagram.com/'):
-       insta(text)
+       insta(text,chat)
        return 'Click here /generate'
-
+      
     return 'Sorry i am not able to understand'
-
+  
 async def handel_message(update:Update,context: ContextTypes.DEFAULT_TYPE):
     message_type: str = update.message.chat.type
     text: str = update.message.text
-
+    chatid = update.message.chat.id
+    
     print(f'User ({update.message.chat.id}) in {message_type}: "{text}')
-
+    
     if text.startswith('https://www.instagram.com/'):   
       await update.message.reply_text('Please wait while we make the file....')
       await update.message.reply_chat_action(action='typing')
-    response: str = handle_response(text)
+    response: str = handle_response(text,chatid)
     print('Bot:',response)
     await update.message.reply_text(response)
-
-
+    
+    
 if __name__ == '__main__':
     print('Starting...')
     app = Application.builder().token(bot_token).build()
-
+    
     app.add_handler(CommandHandler('start',start_cmd))
     app.add_handler(CommandHandler('image',img_cmd))
     app.add_handler(CommandHandler('video',vid_cmd))
     app.add_handler(CommandHandler('generate',img))
     app.add_handler(CommandHandler('generate_reel',reel))
-
+    
     app.add_handler(MessageHandler(filters.TEXT,handel_message))
-
+    
     app.run_polling(poll_interval=3)
