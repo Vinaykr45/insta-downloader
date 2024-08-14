@@ -13,14 +13,14 @@ keep_alive()
 bot_token = os.environ.get('token')
 chat_id = '-1002076457708'
 
-sessionid ='53337164038%3AM21mEsh0cRYZ5N%3A2%3AAYeYaoXumNPgaGeaA1_zAPOS8zn2WyOP8yvTi6Q4Vg'
+sessionid ='53337164038%3AuGAqYGwO57KEWH%3A22%3AAYcHQQwZVe3alnoLRN0oCeBCif_ODHrbq9ARZRMMdg'
 # Instaloader settings
 ig = instaloader.Instaloader()
 ig.context.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
 ig.context.max_connection_attempts = 1
 ig.context._session.cookies.update({
     'sessionid': sessionid,
-    'csrftoken': '9u7LQv35q7JwHJHYoZw0A8DfQiu7TjGB',  # Replace with your actual csrftoken
+    'csrftoken': 'aUjwYKQvF2XGKigYbq9mBUeDkh8lArHV',  # Replace with your actual csrftoken
     'ds_user_id': '53337164038'    # Replace with your actual user ID
 })
 
