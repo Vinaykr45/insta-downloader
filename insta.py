@@ -13,15 +13,15 @@ keep_alive()
 bot_token = os.environ.get('token')
 chat_id = '-1002076457708'
 
-sessionid ='53337164038%3AuGAqYGwO57KEWH%3A22%3AAYcHQQwZVe3alnoLRN0oCeBCif_ODHrbq9ARZRMMdg'
+sessionid ='8534509620%3AU3bUzlgFNnB1pB%3A5%3AAYfCTLRkk0wH5POgCmolA2FesL4W_Y5rBSScbb_OYA'
 # Instaloader settings
 ig = instaloader.Instaloader()
 ig.context.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
 ig.context.max_connection_attempts = 1
 ig.context._session.cookies.update({
     'sessionid': sessionid,
-    'csrftoken': 'aUjwYKQvF2XGKigYbq9mBUeDkh8lArHV',  # Replace with your actual csrftoken
-    'ds_user_id': '53337164038'    # Replace with your actual user ID
+    'csrftoken': 'h0g4ZNuaLtZtpgsc3FYVA2Te1wHTl3Y8',  # Replace with your actual csrftoken
+    'ds_user_id': '8534509620'    # Replace with your actual user ID
 })
 
 pathname = 'instafiles'
